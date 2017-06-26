@@ -1,5 +1,8 @@
 # my-search
 
+## 环境
+* laravel 5.4
+* php 7.1
 
 
 ## 参考文档
