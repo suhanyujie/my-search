@@ -19,5 +19,8 @@ Route::get('/', function () {
 Route::group(['namespace'=>'MySearch'], function(){
 
     Route::get('/index', 'Cindex@index');
+    Route::get('/test', function(){
+        return view('Test.test1');
+    });
 
 });
