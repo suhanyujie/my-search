@@ -11,16 +11,33 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 // 通用路由
-Route::group(['namespace'=>'MySearch'], function(){
+Route::group(['domain' => 'search.suhanyu.dev', 'namespace' => 'MySearch'], function () {
 
     Route::get('/index', 'Cindex@index');
-    Route::get('/test', function(){
+    Route::get('/test', function () {
+
         return view('Test.test1');
     });
 
 });
+
+Route::group(['domain' => 'test.suhanyu.dev'], function () {
+    Route::get('/index', function () {
+        return [
+            'domain' => 'this domain is "test"'
+        ];
+    });
+});
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+

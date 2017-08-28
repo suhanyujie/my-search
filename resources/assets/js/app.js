@@ -15,8 +15,20 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+// window.Vue.component('example', require('./components/Example.vue'));
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+import Example from './components/Example.vue'
+import Index from './components/Index/index.vue'
 
-const app = new Vue({
+Vue.use(ElementUI)
+
+
+const app = new window.Vue({
+    name: 'rootApp',
+    components: {
+        Example,Index
+    },
     el: '#app'
+    // render: h => h(App)
 });
