@@ -20,8 +20,10 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import Example from './components/Example.vue'
 import Index from './components/Index/index.vue'
+import axios from 'axios'
 
 Vue.use(ElementUI)
+Vue.prototype.$http = axios
 
 
 const app = new window.Vue({

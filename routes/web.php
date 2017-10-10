@@ -15,11 +15,14 @@
 // 通用路由
 Route::group(['domain' => 'search.suhanyu.dev', 'namespace' => 'MySearch'], function () {
 
-    Route::get('/index', 'Cindex@index');
-    Route::get('/test', function () {
-
+    Route::get('/search/index', 'Cindex@getData');
+    // 内容的存储
+    Route::match(['post'], '/article/store', 'Cindex@store');
+    Route::match(['get'], '/test', function (){
         return view('Test.test1');
     });
+    // 从es中获取一条数据
+    Route::get('/getData/{id}', 'Cindex@getData');
 
 });
 
