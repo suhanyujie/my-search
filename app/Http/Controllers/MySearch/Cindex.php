@@ -5,6 +5,7 @@ namespace App\Http\Controllers\MySearch;
 use App\Libs\Error\ErrorCode;
 use App\Models\MySearch\OilUser;
 use App\Services\Search\Sarticle;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +28,7 @@ class Cindex extends Controller
     /**
      * @desc 根据id 从es中获取一个数据
      * @param Request $request
-     * @param         $id
+     * @param   int   $id
      * @return json
      */
     public function getData(Request $request, $id)
@@ -35,15 +36,23 @@ class Cindex extends Controller
         $client = new GuzzleClient([
             'base_uri' => 'http://127.0.0.1:9200',
         ]);
-        $response = $client->request('get', '/test1_index/test1/'.$id);
         $responseArr = [
-            'error_no'=>ErrorCode::NO_ERROR,
-            'error_msg'=>'',
+            'error_no'  => ErrorCode::NO_ERROR,
+            'error_msg' => '',
         ];
-        if ($response->getStatusCode() !== 200){
-            $responseArr['error_msg'] = $response->getStatusCode();
-        }else{
-            $body = $response->getBody()->getContents();
+        $response = '';
+        try{
+            $response = $client->request('get', '/test1_index/test1/' . $id);
+        }catch (ClientException $e){
+            $response = $e->getResponse();
+            $errorMsg = $e->getMessage();
+        }
+        $body = $response->getBody()->getContents();
+        if ($response->getStatusCode() !== 200) {
+            $responseArr['error_no'] = $response->getStatusCode();
+            $responseArr['error_msg'] = $errorMsg;
+            $responseArr['data'] = json_decode($body);
+        } else {
             $responseArr['data'] = json_decode($body);
         }
         
@@ -58,6 +67,7 @@ class Cindex extends Controller
     public function store(Request $request)
     {
         $input = $request->input();
+        dd($input);
         $result = ArticleModel::create($input);
         $responseArr = [
             'error_no' => ErrorCode::NO_ERROR, 'error_msg' => '',
