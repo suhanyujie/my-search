@@ -40,20 +40,19 @@ class Cindex extends Controller
             'error_no'  => ErrorCode::NO_ERROR,
             'error_msg' => '',
         ];
-        $response = '';
-        try{
+        try {
             $response = $client->request('get', '/test1_index/test1/' . $id);
-        }catch (ClientException $e){
+        } catch ( ClientException $e ) {
             $response = $e->getResponse();
             $errorMsg = $e->getMessage();
         }
         $body = $response->getBody()->getContents();
+        $responseArr['data'] = json_decode($body);
         if ($response->getStatusCode() !== 200) {
             $responseArr['error_no'] = $response->getStatusCode();
             $responseArr['error_msg'] = $errorMsg;
-            $responseArr['data'] = json_decode($body);
         } else {
-            $responseArr['data'] = json_decode($body);
+            $responseArr['error_no'] = ErrorCode::NO_ERROR;
         }
         
         return response()->json($responseArr);
