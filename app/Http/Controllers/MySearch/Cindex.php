@@ -27,11 +27,11 @@ class Cindex extends Controller
     
     /**
      * @desc 根据id 从es中获取一个数据
-     * @param Request $request
-     * @param   int   $id
+     * @param Request  $request
+     * @param   string $keyword
      * @return json
      */
-    public function getData(Request $request, $id)
+    public function search(Request $request, $keyword)
     {
         $client = new GuzzleClient([
             'base_uri' => 'http://127.0.0.1:9200',
@@ -41,7 +41,7 @@ class Cindex extends Controller
             'error_msg' => '',
         ];
         try {
-            $response = $client->request('get', '/test1_index/test1/' . $id);
+            $response = $client->request('get', '/test1_index/test1/_search?q=content:' . $keyword);
         } catch ( ClientException $e ) {
             $response = $e->getResponse();
             $errorMsg = $e->getMessage();
@@ -66,15 +66,21 @@ class Cindex extends Controller
     public function store(Request $request)
     {
         $input = $request->input();
-        dd($input);
         $result = ArticleModel::create($input);
         $responseArr = [
-            'error_no' => ErrorCode::NO_ERROR, 'error_msg' => '',
+            'error_no'  => ErrorCode::NO_ERROR,
+            'error_msg' => '',
         ];
         if ( $result instanceof ArticleModel ) {
             $responseArr['error_msg'] = '新增内容成功！';
             // 加入到es文档中建立索引
-            $this->sArticle->pushData($result->toArray());
+            $result = $this->sArticle->pushData([
+                'data'=>$result->toArray(),
+            ]);
+            if($result !== true){
+                $responseArr['error_no'] = ErrorCode::NORMAL_ERROR;
+                $responseArr['error_msg'] = '新内容添加搜索索引失败！可能是已经加入过。';
+            }
         } else {
             $responseArr['error_msg'] = '新增内容失败！';
         }

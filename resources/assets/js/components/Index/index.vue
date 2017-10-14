@@ -2,13 +2,10 @@
     <div class="row">
         <el-row type="flex">
             <el-col :span="6">
-                <div>
-                    <h2>标题</h2>
+                <div class="article-result" v-for="item in searchResult">
+                    <h2>{{ item._source.title }}</h2>
                     <div class="article-brief">
-                        <p>
-                            但是，虽然$A可以像数组那样操作，却无法使用foreach遍历，除非部署了前面提到的Iterator界面。
-                            另一个解决方法是，有时会需要将数据和遍历部分分开，这时就可以部署IteratorAggregate界面。它规定了一个getIterator()方法，返回一个使用Iterator界面的object。
-                        </p>
+                        {{ item._source.content }}
                     </div>
                 </div>
             </el-col>
@@ -67,6 +64,7 @@
             return {
                 apiUrl: '/search/index',
                 apiBaseUrl: '',
+                searchResult: [],
                 searchForm: {
                     validateContent: '',
                     searchKeyword: ''
@@ -105,9 +103,10 @@
                     }
                 };
                 _this.$http.get('/search/' + keyword, param).then(response => {
-                    if (response.error_no != 0) {
-
+                    if (response.data.error_no) {
+                        this.$message('请求异常！请稍候再试');
                     }
+                    _this.searchResult = response.data.data.hits.hits;
                     console.log(response);
                 });
             },

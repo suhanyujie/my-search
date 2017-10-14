@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b53c7087ec8bd3dffc740ac18d6de0ab",
+    "content-hash": "08e1fe1814e7947a339932cf3511f473",
     "packages": [
         {
             "name": "bshaffer/oauth2-server-php",
@@ -203,6 +203,106 @@
                 "parser"
             ],
             "time": "2017-03-29T16:04:15+00:00"
+        },
+        {
+            "name": "garveen/fastcgi",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/garveen/fastcgi.git",
+                "reference": "1fc385fe8cedd1f4f3a19afe6cf0303f3efb4e4e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/garveen/fastcgi/1fc385fe8cedd1f4f3a19afe6cf0303f3efb4e4e.zip",
+                "reference": "1fc385fe8cedd1f4f3a19afe6cf0303f3efb4e4e",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/psr7": "^1.3",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Garveen\\FastCgi\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gavin",
+                    "email": "acabin@live.com"
+                }
+            ],
+            "description": "An effective FastCGI to psr-7 adapter",
+            "keywords": [
+                "fastcgi",
+                "psr-7",
+                "psr7"
+            ],
+            "time": "2017-03-12T20:17:18+00:00"
+        },
+        {
+            "name": "garveen/laravoole",
+            "version": "0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/garveen/laravoole.git",
+                "reference": "7891dc067120649e4ad71024a8485427ac6bb2db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/garveen/laravoole/7891dc067120649e4ad71024a8485427ac6bb2db.zip",
+                "reference": "7891dc067120649e4ad71024a8485427ac6bb2db",
+                "shasum": ""
+            },
+            "require": {
+                "ext-posix": "*",
+                "garveen/fastcgi": "^0.1",
+                "laravel/framework": "~5.1",
+                "php": ">=5.5.16",
+                "symfony/psr-http-message-bridge": "^1.0",
+                "zendframework/zend-diactoros": "^1.3"
+            },
+            "require-dev": {
+                "adoy/fastcgi-client": "^1.0",
+                "laravel/laravel": "~5.1",
+                "phpunit/phpunit": ">4.8 <6.0",
+                "textalk/websocket": "^1.2",
+                "workerman/workerman": "^3.3"
+            },
+            "suggest": {
+                "ext-swoole": "event-based extension for best performance",
+                "workerman/workerman": "event-based library without need for any extension"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Laravoole\\": "src/",
+                    "Laravoole\\Test\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gavin",
+                    "email": "acabin@live.com"
+                }
+            ],
+            "description": "Get 10x performance for Laravel on Swoole or Workerman",
+            "keywords": [
+                "laravel",
+                "swoole",
+                "workerman"
+            ],
+            "time": "2017-03-14T08:17:31+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1858,6 +1958,66 @@
             "time": "2017-05-22T12:32:03+00:00"
         },
         {
+            "name": "symfony/psr-http-message-bridge",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/psr-http-message-bridge.git",
+                "reference": "66085f246d3893cbdbcec5f5ad15ac60546cf0de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/symfony/psr-http-message-bridge/66085f246d3893cbdbcec5f5ad15ac60546cf0de.zip",
+                "reference": "66085f246d3893cbdbcec5f5ad15ac60546cf0de",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "psr/http-message": "~1.0",
+                "symfony/http-foundation": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7|~3.0"
+            },
+            "suggest": {
+                "psr/http-message-implementation": "To use the HttpFoundation factory",
+                "zendframework/zend-diactoros": "To use the Zend Diactoros factory"
+            },
+            "type": "symfony-bridge",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Bridge\\PsrHttpMessage\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "PSR HTTP message bridge",
+            "homepage": "http://symfony.com",
+            "keywords": [
+                "http",
+                "http-message",
+                "psr-7"
+            ],
+            "time": "2016-09-14T18:37:20+00:00"
+        },
+        {
             "name": "symfony/routing",
             "version": "v3.3.0",
             "source": {
@@ -2164,6 +2324,58 @@
                 "environment"
             ],
             "time": "2016-09-01T10:05:43+00:00"
+        },
+        {
+            "name": "zendframework/zend-diactoros",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-diactoros.git",
+                "reference": "2faa791b66bac33ca40031d8bce03b7dc8143490"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/zendframework/zend-diactoros/2faa791b66bac33ca40031d8bce03b7dc8143490.zip",
+                "reference": "2faa791b66bac33ca40031d8bce03b7dc8143490",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0",
+                "psr/http-message": "^1.0"
+            },
+            "provide": {
+                "psr/http-message-implementation": "1.0"
+            },
+            "require-dev": {
+                "ext-dom": "*",
+                "ext-libxml": "*",
+                "phpunit/phpunit": "^5.7.16 || ^6.0.8",
+                "zendframework/zend-coding-standard": "~1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.6-dev",
+                    "dev-develop": "1.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zend\\Diactoros\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "description": "PSR HTTP Message implementations",
+            "homepage": "https://github.com/zendframework/zend-diactoros",
+            "keywords": [
+                "http",
+                "psr",
+                "psr-7"
+            ],
+            "time": "2017-09-13T14:47:08+00:00"
         }
     ],
     "packages-dev": [
