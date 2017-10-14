@@ -6,6 +6,7 @@
 ## 环境
 * laravel 5.4
 * php 7.1
+* Vuejs `&& Element UI 2.4+`
 * elastic search 5.5.1 搜索引擎
 
 ## 安装
