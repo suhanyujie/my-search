@@ -33,26 +33,29 @@ class Cindex extends Controller
      */
     public function search(Request $request, $keyword)
     {
-        $client = new GuzzleClient([
-            'base_uri' => 'http://127.0.0.1:9200',
-        ]);
-        $responseArr = [
-            'error_no'  => ErrorCode::NO_ERROR,
-            'error_msg' => '',
-        ];
         try {
+            $client = new GuzzleClient([
+                'base_uri' => 'http://127.0.0.1:9200',
+            ]);
+            $responseArr = [
+                'error_no'  => ErrorCode::NO_ERROR,
+                'error_msg' => '',
+            ];
             $response = $client->request('get', '/test1_index/test1/_search?q=content:' . $keyword);
-        } catch ( ClientException $e ) {
-            $response = $e->getResponse();
-            $errorMsg = $e->getMessage();
+            $body = $response->getBody()->getContents();
+        } catch (\Exception $e ) {
+            return response()->json([
+                'status'=>$e->getCode(),
+                'message'=>$e->getMessage(),
+            ]);
         }
-        $body = $response->getBody()->getContents();
         $responseArr['data'] = json_decode($body);
         if ($response->getStatusCode() !== 200) {
-            $responseArr['error_no'] = $response->getStatusCode();
-            $responseArr['error_msg'] = $errorMsg;
+            $responseArr['status']  = $response->getStatusCode();
+            $responseArr['message'] = $response->getReasonPhrase();
         } else {
-            $responseArr['error_no'] = ErrorCode::NO_ERROR;
+            $responseArr['status']  = 1;
+            $responseArr['message'] = '查询成功！';
         }
         
         return response()->json($responseArr);

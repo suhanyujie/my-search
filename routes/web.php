@@ -13,7 +13,7 @@
 
 
 // 通用路由
-Route::group(['domain' => 'search.suhanyu.dev', 'namespace' => 'MySearch'], function () {
+Route::group(['domain' => 'search.suhanyu.deve', 'namespace' => 'MySearch'], function () {
     
     // 内容的搜索
     Route::get('/search/{keyword}', 'Cindex@search');
