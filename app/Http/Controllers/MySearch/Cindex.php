@@ -24,22 +24,25 @@ class Cindex extends Controller
     {
         $this->sArticle = $sArticle;
     }
-    
+
     /**
      * @desc 根据id 从es中获取一个数据
-     * @param Request  $request
+     * @param Request $request
      * @param   string $keyword
      * @return json
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function search(Request $request, $keyword)
+    public function search(Request $request)
     {
+        $input = $request->input();
+        $keyword = empty($input['keyword']) ? '' : $input['keyword'];
         try {
             $client = new GuzzleClient([
                 'base_uri' => 'http://127.0.0.1:9200',
             ]);
             $responseArr = [
                 'error_no'  => ErrorCode::NO_ERROR,
-                'error_msg' => '',
+                'error_msg' => '初始化message！',
             ];
             $response = $client->request('get', '/test1_index/test1/_search?q=content:' . $keyword);
             $body = $response->getBody()->getContents();
