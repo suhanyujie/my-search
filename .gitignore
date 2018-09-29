@@ -13,3 +13,4 @@ npm-debug.log
 /public/js
 /public/css
 /public/js/app.js
+/package-lock.json
