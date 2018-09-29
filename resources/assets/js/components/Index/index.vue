@@ -98,12 +98,10 @@
                 var _this = this;
                 var keyword = _this.searchForm.searchKeyword;
                 var param = {
-                    params: {
-                        keyword: keyword
-                    }
+                    keyword:keyword
                 };
-                _this.$http.get('/search/' + keyword, param).then(response => {
-                    if (response.data.error_no) {
+                _this.$http.get('/api/search', param).then(response => {
+                    if (response.data.status != 1) {
                         this.$message('请求异常！请稍候再试');
                     }
                     _this.searchResult = response.data.data.hits.hits;
