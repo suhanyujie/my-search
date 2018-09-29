@@ -14,25 +14,14 @@
 
 // 通用路由
 Route::group(['domain' => 'search.suhanyu.deve', 'namespace' => 'MySearch'], function () {
-    
-    // 内容的搜索
-    Route::get('/search/{keyword}', 'Cindex@search');
-    // 内容的存储
-    Route::match(['post'], '/article/store', 'Cindex@store');
+    //首页
     Route::match(['get'], '/test', function (){
         return view('Test.test1');
     });
+    // 内容的存储
+    Route::match(['post'], '/article/store', 'Cindex@store');
 
 });
-
-Route::group(['domain' => 'test.suhanyu.dev'], function () {
-    Route::get('/index', function () {
-        return [
-            'domain' => 'this domain is "test"'
-        ];
-    });
-});
-
 
 Auth::routes();
 
