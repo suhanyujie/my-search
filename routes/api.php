@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 Route::group(['domain' => 'search.suhanyu.deve', 'namespace' => 'MySearch'], function () {
-    // 搜索接口
+    // 执行搜索的接口
     Route::get('/search', 'Cindex@search');
 });
 

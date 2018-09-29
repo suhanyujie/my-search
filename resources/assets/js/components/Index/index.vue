@@ -90,7 +90,7 @@
                     content: _this.addNoteForm.content
                 };
                 _this.$http.post('/article/store', param).then(reponse => {
-
+                    console.log(reponse);
                 });
             },
             // 搜索

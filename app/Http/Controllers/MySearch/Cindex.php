@@ -71,26 +71,26 @@ class Cindex extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->input();
-        $result = ArticleModel::create($input);
+        $input       = $request->input();
+        $result      = ArticleModel::create($input);
         $responseArr = [
-            'error_no'  => ErrorCode::NO_ERROR,
-            'error_msg' => '',
+            'status'  => ErrorCode::NO_ERROR,
+            'message' => '',
         ];
-        if ( $result instanceof ArticleModel ) {
-            $responseArr['error_msg'] = '新增内容成功！';
+        if ($result instanceof ArticleModel) {
+            $responseArr['message'] = '新增内容成功！';
             // 加入到es文档中建立索引
             $result = $this->sArticle->pushData([
-                'data'=>$result->toArray(),
+                'data' => $result->toArray(),
             ]);
-            if($result !== true){
-                $responseArr['error_no'] = ErrorCode::NORMAL_ERROR;
-                $responseArr['error_msg'] = '新内容添加搜索索引失败！可能是已经加入过。';
+            if ($result != 1) {
+                $responseArr['status']  = ErrorCode::NORMAL_ERROR;
+                $responseArr['message'] = $result['message'];
             }
         } else {
-            $responseArr['error_msg'] = '新增内容失败！';
+            $responseArr['message'] = '新增内容失败！';
         }
-        
+
         return response()->json($responseArr);
     }
     

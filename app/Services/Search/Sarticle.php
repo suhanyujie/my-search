@@ -19,24 +19,28 @@ class Sarticle
     /**
      * @desc 每新增一个文章数据，就将其插入到es的文档中，建立索引
      * @param array $paramArr
-     * @return bool
+     * @return array
      */
     public function pushData($paramArr)
     {
         $options = [
-            'uri'=>'/test1_index/test1/',
+            'uri'=>'/test1_index/test1',
             'data'=>[],
         ];
         $options = array_merge($options, $paramArr);
         extract($options);
-        $client = new GuzzleClient([
-            'base_uri' => env('ELASTIC_SEARCH_URL', 'http://127.0.0.1:9200'),
-        ]);
-        $response = $client->request('PUT', $uri . $data['id'], ['body' => json_encode($data)]);
-        if ( $response->getStatusCode() !== 200 ) {
-            return false;
-        } else {
-            return true;
+        try{
+            $client = new GuzzleClient([
+                'base_uri' => env('ELASTIC_SEARCH_URL', 'http://127.0.0.1:9200'),
+            ]);
+            $response = $client->request('PUT', $options['uri'] . $options['data']['id'], ['body' => json_encode($options['data'])]);
+            if ( $response->getStatusCode() !== 200 ) {
+                return ['status'=>200138,'message'=>'请求的返回httpCode为'.$response->getStatusCode()];
+            } else {
+                return ['status'=>1,'message'=>'加入es成功！'];
+            }
+        }catch (\Exception $e) {
+            return ['status'=>$e->getCode(),'message'=>$e->getMessage()];
         }
     }
 }
