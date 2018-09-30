@@ -41,10 +41,14 @@ class Cindex extends Controller
                 'base_uri' => 'http://127.0.0.1:9200',
             ]);
             $responseArr = [
-                'error_no'  => ErrorCode::NO_ERROR,
-                'error_msg' => '初始化message！',
+                'status'  => ErrorCode::NO_ERROR,
+                'message' => '初始化message！',
             ];
-            $response = $client->request('get', '/test1_index/test1/_search?q=content:' . $keyword);
+            $docIndexName = 'test1_index';
+            $docIndexType = 'test1';
+            $queryUri = sprintf('/%s/%s/_search',$docIndexName, $docIndexType);
+            $queryUri = $queryUri.'?q=content:' . $keyword;
+            $response = $client->request('get', $queryUri);
             $body = $response->getBody()->getContents();
         } catch (\Exception $e ) {
             return response()->json([

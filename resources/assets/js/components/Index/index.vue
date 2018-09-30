@@ -89,18 +89,25 @@
                     title: _this.addNoteForm.title,
                     content: _this.addNoteForm.content
                 };
-                _this.$http.post('/article/store', param).then(reponse => {
-                    console.log(reponse);
+                _this.$http.post('/article/store', param).then(response => {
+                    var responseData = response.data;
+                    this.$message(responseData.message);
+                    if(responseData.status != 1) {
+                        return;
+                    }
+                    console.log(response);
                 });
             },
             // 搜索
             handleIconClick(ev) {
                 var _this = this;
                 var keyword = _this.searchForm.searchKeyword;
-                var param = {
-                    keyword:keyword
+                var optionsObject = {
+                    params: {
+                        keyword: keyword
+                    }
                 };
-                _this.$http.get('/api/search', param).then(response => {
+                _this.$http.get('/api/search', optionsObject).then(response => {
                     if (response.data.status != 1) {
                         this.$message('请求异常！请稍候再试');
                     }

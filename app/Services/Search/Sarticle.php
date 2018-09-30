@@ -24,16 +24,19 @@ class Sarticle
     public function pushData($paramArr)
     {
         $options = [
-            'uri'=>'/test1_index/test1',
-            'data'=>[],
+            'docIndexName' => 'test1_index',
+            'docIndexType' => 'test1',
+            'data'         => [],
         ];
         $options = array_merge($options, $paramArr);
         extract($options);
+        $esUri = sprintf("/%s/%s/%d", $options['docIndexName'], $options['docIndexType'],$options['data']['id']);
+        $bodyStr = json_encode($options['data'],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
         try{
             $client = new GuzzleClient([
                 'base_uri' => env('ELASTIC_SEARCH_URL', 'http://127.0.0.1:9200'),
             ]);
-            $response = $client->request('PUT', $options['uri'] . $options['data']['id'], ['body' => json_encode($options['data'])]);
+            $response = $client->request('PUT', $esUri, ['body' =>$bodyStr ]);
             if ( $response->getStatusCode() !== 200 ) {
                 return ['status'=>200138,'message'=>'请求的返回httpCode为'.$response->getStatusCode()];
             } else {
