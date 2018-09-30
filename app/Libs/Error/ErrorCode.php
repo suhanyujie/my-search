@@ -18,10 +18,10 @@ class ErrorCode
     /**
      * 正常
      */
-    const NO_ERROR = 0;
+    const NO_ERROR = 1;
     
     /**
      * 普通错误
      */
-    const NORMAL_ERROR = 1;
+    const NORMAL_ERROR = 4;
 }
